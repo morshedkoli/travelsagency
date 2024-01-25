@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  name         String
+  password     String
+  otp          String
+  customers    Customer[]
+  serviceNames ServiceName[]
+  services     Services[]
+  paidHistory  PaidHistory[]
+
+  updatedAt DateTime @default(now()) @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Customer {
+  id      Int    @id @default(autoincrement())
+  name    String
+  address String
+  number  String
+  email   String
+  userId  Int
+  user    User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Restrict)
+
+  services    Services[]
+  paidHistory PaidHistory[]
+
+  updatedAt DateTime @default(now()) @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model ServiceName {
+  id     Int    @id @default(autoincrement())
+  name   String
+  userId Int
+  user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Restrict)
+
+  servicesId Int      @unique
+  services   Services @relation(fields: [servicesId], references: [id], onUpdate: Cascade, onDelete: Restrict)
+
+  updatedAt DateTime @default(now()) @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Services {
+  id Int @id @default(autoincrement())
+
+  serviceName ServiceName?
+
+  customerCost Int
+  paidAmount   Int
+  actualCost   Int
+  status       String
+
+  customerId Int
+  customer   Customer @relation(fields: [customerId], references: [id], onUpdate: Cascade, onDelete: Restrict)
+
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Restrict)
+  updatedAt DateTime @default(now()) @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model PaidHistory {
+  id     Int @id @default(autoincrement())
+  amount Int
+
+  customerId Int
+  customer   Customer @relation(fields: [customerId], references: [id], onUpdate: Cascade, onDelete: Restrict)
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Restrict)
+
+  updatedAt DateTime @default(now()) @updatedAt
+  createdAt DateTime @default(now())
+}
