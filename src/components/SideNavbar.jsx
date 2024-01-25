@@ -11,6 +11,7 @@ import {
     LayoutDashboard,
     MessagesSquare,
     PenBox,
+    PlusSquare,
     Search,
     Send,
     Settings,
@@ -67,9 +68,34 @@ function toggleSidebar(){
         variant: "ghost",
       },
       {
+        title: "New Customer",
+        href:"/new-customer",
+        icon: UsersRound,
+        variant: "ghost",
+      },
+      {
+        title: "Services",
+        href:"/services",
+        icon: UsersRound,
+        variant: "ghost",
+      },
+      {
+        title: "New Service",
+        href:"/new-service",
+        icon: UsersRound,
+        variant: "ghost",
+      },
+      {
         title: "Requests",
         href:"/requests",
         icon: ShoppingCart,
+        variant: "ghost",
+      },
+
+      {
+        title: "New Request",
+        href:"/new-request",
+        icon: PlusSquare,
         variant: "ghost",
       },
       {
