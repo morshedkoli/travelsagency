@@ -33,7 +33,7 @@ function Login() {
 
      const data= await res.json()
     if(data.status==="success"){
-      swal("Welcome To Ikram Telecom!", `you Are Successfully loged In`, "success");
+      swal("Welcome Agency!", `you Are Successfully loged In`, "success");
       window.location.href="/dashboard"
     }else{
       swal(`Login Fail `, ` There is a problem, check and login again `, "info");

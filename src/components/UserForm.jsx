@@ -44,6 +44,8 @@ function UserForm() {
 
      const data= await res.json()
 
+     console.log("response", data)
+
      if(data.status==="success"){
       swal("Welcome To Agency!", `${data.data["name"]} Are Successfully Created as Customer`, "success");
      }
