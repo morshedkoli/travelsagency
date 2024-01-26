@@ -7,21 +7,31 @@ export async function middleware(req, res) {
     let payload = await VerifyToken(token["value"]);
 
     const requestHeader = new Headers(req.headers);
-    requestHeader.set("username", payload.username["username"]);
-    requestHeader.set("id", payload.username["id"]);
+    requestHeader.set("email", payload["email"]);
+    requestHeader.set("id", payload["id"]);
 
     return NextResponse.next({ request: { headers: requestHeader } });
   } catch (e) {
-    const protectedRoutes = ["/dashboard"];
-
-    if (protectedRoutes.includes(req.nextUrl.pathname)) {
-      const absoluteURL = new URL("/", req.nextUrl.origin);
-      return NextResponse.redirect(absoluteURL.toString());
+    if (req.url.startsWith("/api/")) {
+      return NextResponse.json(
+        {
+          status: "fail",
+          data: "Unauthorized",
+        },
+        { status: 401 }
+      );
+    } else {
+      res.redirect("/user/login");
     }
-    const requestHeader = new Headers(req.headers);
-    requestHeader.set("username", "0");
-    requestHeader.set("id", "0");
-
-    return NextResponse.next({ request: { headers: requestHeader } });
   }
 }
+
+export const config = {
+  matcher: [
+    "/api/customer/:path*",
+    "/api/paidHistory/:path*",
+    "/api/serviceName/:path*",
+    "/api/services/:path*",
+    "/dashboard/:path*",
+  ],
+};

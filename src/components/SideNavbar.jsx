@@ -9,6 +9,7 @@ import {
     File,
     Inbox,
     LayoutDashboard,
+    LogOut,
     MessagesSquare,
     PenBox,
     PlusSquare,
@@ -41,67 +42,72 @@ function toggleSidebar(){
 
   return (
     <div className='relative min-w-[80px] border-r px-3 pb-10 pt-24'> 
-{
-  !mobileWidth && (
-    <div className='absolute right-[-20px] top-7'>
-        <Button
-        onClick={toggleSidebar}
-        variant="secondary" className="rounded-full p-2" >
-              <ChevronRight/>
-        </Button>
-</div>
-  )
-}
+{!mobileWidth && (
+  <div className='absolute right-[-20px] top-7'>
+    <Button
+      onClick={toggleSidebar}
+      variant="secondary" className="rounded-full p-2">
+        <ChevronRight/>
+    </Button>
+  </div>
+)}
+
       <Nav
     isCollapsed={mobileWidth? true: isCollapsed}
     links={[
       {
         title: "Dashboard",
-        href:"/",
+        href:"/dashboard",
         icon: LayoutDashboard,
         variant: "default",
       },
       {
         title: "Customers",
-        href:"/customers",
+        href:"/dashboard/customers",
         icon: UsersRound,
         variant: "ghost",
       },
       {
         title: "New Customer",
-        href:"/new-customer",
+        href:"/dashboard/customers/new",
         icon: UsersRound,
         variant: "ghost",
       },
       {
         title: "Services",
-        href:"/services",
+        href:"/dashboard/services",
         icon: UsersRound,
         variant: "ghost",
       },
       {
         title: "New Service",
-        href:"/new-service",
+        href:"/dashboard/services/new",
         icon: UsersRound,
         variant: "ghost",
       },
       {
         title: "Requests",
-        href:"/requests",
+        href:"/dashboard/requests",
         icon: ShoppingCart,
         variant: "ghost",
       },
 
       {
         title: "New Request",
-        href:"/new-request",
+        href:"/dashboard/requests/new",
         icon: PlusSquare,
         variant: "ghost",
       },
       {
         title: "Settings",
-        href:"/settings",
+        href:"/dashboard/settings",
         icon: Settings,
+        variant: "ghost",
+      },
+      {
+        title: "Log Out",
+        href:"/api/user/login",
+        icon: LogOut,
         variant: "ghost",
       },
      

@@ -1,8 +1,8 @@
 import { jwtVerify, SignJWT } from "jose";
 
-export async function CreateToken(username, id) {
+export async function CreateToken(email, id) {
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-  const Payload = { username, id };
+  const Payload = { email, id };
   let token = await new SignJWT(Payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()

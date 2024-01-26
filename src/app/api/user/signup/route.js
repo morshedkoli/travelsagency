@@ -17,7 +17,7 @@ export async function POST(req, res) {
     // })
 
     if (exitingUser.length === 1) {
-      return NextResponse.json({ status: "usermatch", data: exitingUser[0] });
+      return NextResponse.json({ status: "emailexist", data: exitingUser[0] });
     } else {
       const user = await prisma.user.create({
         data: reqBody,
@@ -25,7 +25,7 @@ export async function POST(req, res) {
 
       return NextResponse.json({
         status: "success",
-        data: { user },
+        data: user,
       });
     }
   } catch (e) {
