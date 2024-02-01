@@ -6,9 +6,7 @@ import swal from 'sweetalert';
 import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
-import Image from 'next/image';
-import { Player, Controls } from '@lottiefiles/react-lottie-player';
-import Link from 'next/link';
+
 
 function CustomerForm() {
 
