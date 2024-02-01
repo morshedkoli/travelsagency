@@ -21,7 +21,7 @@ export async function middleware(req, res) {
         { status: 401 }
       );
     } else {
-      res.redirect("/user/login");
+      return NextResponse.redirect("/user/login", req.url);
     }
   }
 }

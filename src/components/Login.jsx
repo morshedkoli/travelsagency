@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
-import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import Link from 'next/link';
 import swal from 'sweetalert';
 

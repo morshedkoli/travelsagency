@@ -7,19 +7,20 @@ import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
 import Image from 'next/image';
+import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import Link from 'next/link';
 
-function UserForm() {
+function CustomerForm() {
 
 
-    const [userdata, setUserData] = useState({})
+    const [customerData, setCustomerData] = useState({})
 
   
   
     function handleInputChange(event) {
       const { name, value } = event.target;
-      setUserData({
-        ...userdata,
+      setCustomerData({
+        ...customerData,
         [name]: value,
       });
     }
@@ -28,17 +29,18 @@ function UserForm() {
 
       e.preventDefault()
 
-      const NewUser =  {
-        name:userdata.name ,
-        email: userdata.email,
-        password:userdata.password,
+      const NewCustomer =  {
+        name:customerData.name ,
+        email: customerData.email,
+        number:customerData.number,
+        address: customerData.address
 
       }
 
-     const res = await fetch("/api/user/signup",{
+     const res = await fetch("/api/customer/create",{
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(NewUser),
+      body: JSON.stringify(NewCustomer),
      })
 
      const data= await res.json()
@@ -46,11 +48,11 @@ function UserForm() {
      console.log("response", data)
 
      if(data.status==="success"){
-      swal("Welcome To Agency!", `${data.data["name"]} Are Successfully Created as Customer`, "success");
+      swal("Okay! You Add Cutomer", ` Successfully Created as Customer`, "success");
      }
     
-     else if(data.status==="emailexist"){
-      swal( `${userdata.email} `,`Email Address are already exist in our system `, "info");
+     else if(data.status==="usermatch"){
+      swal( `${userdata.number} `,`Number are already exist in our system `, "info");
      }
      
      else{
@@ -64,12 +66,12 @@ function UserForm() {
   return (
     <div className='grid w-full h-full  bg-white '>
       
-<div className='bg-[#16202a] min-h-screen text-white flex items-center justify-center  flex-col '>
+<div className='   flex items-center justify-center  flex-col '>
   
 <div className='my-4'>
-  <h1 className='text-3xl font-semibold'>Registration</h1>
+  <h1 className='text-3xl font-semibold'>Add New Customer</h1>
   <p className='mt-2 text-xs text-slate-400'>
-    {' '}
+   
     Go With Your Business Next Level</p>
 </div>
 
@@ -94,11 +96,19 @@ function UserForm() {
 
 
 
-<Label htmlFor="password" > Password*</Label>
+<Label htmlFor="number" > Number*</Label>
 <Input className="mt-2 mb-4 bg-transparent rounded-full"
- type="password" id="password" placeholder="Password"
+ type="number" id="number" placeholder="Number"
  onChange={handleInputChange}
            name='password'
+ />
+
+
+<Label htmlFor="address" > Address*</Label>
+<Input className="mt-2 mb-4 bg-transparent rounded-full"
+ type="address" id="address" placeholder="Address"
+ onChange={handleInputChange}
+           name='address'
  />
 
 
@@ -108,8 +118,7 @@ function UserForm() {
 
 </form>
 
-<p className='mt-6 text-slate-500' 
->Already Have an Account? <Link href="/">Login</Link> Here.</p>
+
 
 </div>
 
@@ -118,4 +127,4 @@ function UserForm() {
   )
 }
 
-export default UserForm
+export default CustomerForm
