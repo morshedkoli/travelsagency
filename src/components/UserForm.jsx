@@ -8,9 +8,11 @@ import { Label } from './ui/label';
 import { Input } from './ui/input';
 import Image from 'next/image';
 import Link from 'next/link';
+import { DNA } from 'react-loader-spinner';
 
 function UserForm() {
-
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
     const [userdata, setUserData] = useState({})
 
@@ -27,6 +29,8 @@ function UserForm() {
     async function submitForm(e){
 
       e.preventDefault()
+      setIsButtonDisabled(true);
+      setIsLoading(true)
 
       const NewUser =  {
         name:userdata.name ,
@@ -47,14 +51,20 @@ function UserForm() {
 
      if(data.status==="success"){
       swal("Welcome To Agency!", `${data.data["name"]} Are Successfully Created as Customer`, "success");
+      setIsLoading(false)
+      setIsButtonDisabled(false)
      }
     
      else if(data.status==="emailexist"){
       swal( `${userdata.email} `,`Email Address are already exist in our system `, "info");
+      setIsLoading(false)
+      setIsButtonDisabled(false)
      }
      
      else{
       swal("Ohh!", `${data.data.e} Are Successfully Not Created as Customer`, "error");
+      setIsLoading(false)
+      setIsButtonDisabled(false)
      }
 
      
@@ -103,8 +113,18 @@ function UserForm() {
 
 
 
-<Button type="submit" className="w-full mt-6 bg-indigo-500 rounded-full hover:bg-indigo-700" > Sign Up</Button>
+<Button type="submit" className="w-full mt-6 bg-indigo-500 rounded-full hover:bg-indigo-700"  disabled={isLoading? true: false} >
+  {isLoading? <span><DNA
+  height="80"
+  width="80"
+  radius="9"
+  color="green"
+  ariaLabel="loading"
+  
+/>
 
+</span> :"Sign Up"}
+  </Button>
 
 </form>
 

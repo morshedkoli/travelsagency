@@ -16,8 +16,7 @@ export async function POST(req, res) {
       return NextResponse.json({ status: "fail", data: "no user found" });
     } else {
       const { email, id } = result[0];
-
-      const token = await CreateToken({ email, id }); // Adjust CreateToken arguments
+      const token = await CreateToken(email, id); // Adjust CreateToken arguments
 
       const expirDuration = new Date(Date.now() + 24 * 60 * 60 * 1000);
       const cookieString = `token=${token}; expires=${expirDuration.toUTCString()}; path=/`;

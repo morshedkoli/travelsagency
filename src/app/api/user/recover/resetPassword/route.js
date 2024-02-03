@@ -9,7 +9,7 @@ export async function POST(req, res) {
       where: { email: reqBody["email"], otp: reqBody["otp"] },
     });
     if (count === 1) {
-      await prisma.users.update({
+      await prisma.user.update({
         where: { email: reqBody["email"] },
         data: { otp: "0", password: reqBody["password"] },
       });

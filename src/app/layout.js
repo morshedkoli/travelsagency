@@ -1,7 +1,7 @@
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import SideNavbar from "@/components/SideNavbar";
 import NextTopLoader from "nextjs-toploader";
+import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({ children }) {
   return (
@@ -9,6 +9,7 @@ export default function RootLayout({ children }) {
       <body>
         <NextTopLoader />
         {children}
+        <Toaster position="top-right" />
       </body>
     </html>
   );

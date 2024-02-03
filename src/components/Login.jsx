@@ -5,8 +5,11 @@ import { Label } from './ui/label';
 import { Input } from './ui/input';
 import Link from 'next/link';
 import swal from 'sweetalert';
+import { DNA } from 'react-loader-spinner';
 
 function Login() {
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [user, setUser] = useState({});
 
@@ -23,6 +26,8 @@ function Login() {
   const onLogin =async(e)=>{
 
     e.preventDefault()
+    setIsButtonDisabled(true);
+  setIsLoading(true)
 
     const res = await  fetch("/api/user/login",{
       method: "POST",
@@ -36,6 +41,7 @@ function Login() {
       window.location.href="/dashboard"
     }else{
       swal(`Login Fail `, ` There is a problem, check and login again `, "info");
+      setIsLoading(false)
 
     }
 
@@ -69,7 +75,18 @@ function Login() {
                name='password'
      />
     
-    <Button type="submit" className="w-full mt-6 bg-indigo-500 rounded-full hover:bg-indigo-700" > Login</Button>
+    <Button type="submit" className="w-full mt-6 bg-indigo-500 rounded-full hover:bg-indigo-700"  disabled={isLoading? true: false} >
+  {isLoading? <span><DNA
+  height="80"
+  width="80"
+  radius="9"
+  color="green"
+  ariaLabel="loading"
+  
+/>
+
+</span> :"Login"}
+  </Button>
     
     
     </form>

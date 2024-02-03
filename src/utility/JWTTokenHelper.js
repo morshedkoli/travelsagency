@@ -1,6 +1,8 @@
 import { jwtVerify, SignJWT } from "jose";
 
 export async function CreateToken(email, id) {
+  console.log("login page email", id);
+
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
   const Payload = { email, id };
   let token = await new SignJWT(Payload)
